@@ -1,0 +1,44 @@
+clear variables;
+clc;
+close all;
+
+x=-1:0.5:1;
+y=-1:0.5:1;
+figure;
+[X,Y]=meshgrid(x,y);
+z=X.^2+Y.^2;
+zi=interp2(x,y,z,X,Y);
+surf(x,y,zi,'EdgeColor','none');
+xlabel('x');
+ylabel('y');
+zlabel('z');
+colorbar;
+colormap('spring');
+lighting phong;
+title('Linear Interpolation');
+box on;
+view(-18,50);
+saveas(gcf, 'linear_interp.png');
+
+hold on;
+figure;
+zi=interp2(x,y,z,X,Y,'spline');
+surf(x,y,zi, 'EdgeColor','none');
+lighting phong;
+xlabel('x');
+ylabel('y');
+zlabel('z');
+colorbar;
+colormap('autumn');
+box on;
+view(-18,50);
+title('Spline Interpolation');
+saveas(gcf, 'spline_interp.png');
+
+hold on;
+figure;
+plot3(x,y,z,'*', 'MarkerSize',15, 'LineWidth',2);
+box on;
+view(-18,50);
+title('Original Grid Points');
+saveas(gcf, 'points.png');
